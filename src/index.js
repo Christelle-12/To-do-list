@@ -44,6 +44,39 @@ function renderTaskList() {
     const listItem = createListItem(task);
     taskList.appendChild(listItem);
   });
+
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function() {
+      const index = Number(checkbox.id.replace('task-', ''));
+      const task = tasks.find((task) => task.index === index);
+      task.completed = checkbox.checked;
+      renderTaskList();
+    });
+  });
+
+  const deleteButtons = document.querySelectorAll('.delete-button');
+  deleteButtons.forEach((button) => {
+    button.addEventListener('click', function() {
+      const index = Number(button.dataset.index);
+      const taskIndex = tasks.findIndex((task) => task.index === index);
+      tasks.splice(taskIndex, 1);
+      renderTaskList();
+    });
+  });
 }
 
-renderTaskList();
+document.addEventListener('DOMContentLoaded', function() {
+  renderTaskList();
+});
+
+const clearButton = document.getElementById('clear-btn');
+clearButton.addEventListener('click', function() {
+  tasks.forEach((task) => {
+    if (task.completed) {
+      const taskIndex = tasks.findIndex((t) => t.index === task.index);
+      tasks.splice(taskIndex, 1);
+    }
+  });
+  renderTaskList();
+});
