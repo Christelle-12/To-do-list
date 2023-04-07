@@ -3,7 +3,31 @@
     flex-direction: column;
     align-items: center;
 }
+#add-task-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
 
+#task-description-input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+#add-task-submit-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 10px;
+    cursor: pointer;
+}
 #task-list {
     width: 100%;
     max-width: 600px;

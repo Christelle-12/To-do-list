@@ -36,15 +36,49 @@ function createListItem(task) {
   `;
   return listItem;
 }
-
 function renderTaskList() {
   const taskList = document.getElementById('task-list');
   taskList.innerHTML = '';
+
+  // Add "Add Task" input field and button as a separate task item
+  const addTaskItem = document.createElement('li');
+  addTaskItem.innerHTML = `
+    <div class="task-item">
+      <div class="task-item__checkbox">
+        <input type="checkbox" disabled>
+        <label for="add-task"></label>
+      </div>
+      <div class="task-item__description">
+        <form id="add-task-form">
+          <input type="text" id="add-task-input" placeholder="Enter task description">
+          <button type="submit" id="add-task-button">Add Task</button>
+        </form>
+      </div>
+      <div class="task-item__delete">
+      </div>
+    </div>
+  `;
+  taskList.appendChild(addTaskItem);
+
+  const addTaskForm = document.getElementById('add-task-form');
+  addTaskForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const taskDescription = document.getElementById('add-task-input').value;
+    const newTask = {
+      description: taskDescription,
+      completed: false,
+      index: tasks.length + 1,
+    };
+    tasks.push(newTask);
+    renderTaskList();
+    addTaskForm.reset();
+  });
+
   tasks.forEach((task) => {
     const listItem = createListItem(task);
     taskList.appendChild(listItem);
   });
-
+  
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach((checkbox) => {
     checkbox.addEventListener('change', function() {
