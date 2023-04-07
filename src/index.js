@@ -29,13 +29,32 @@ function createListItem(task) {
       <div class="task-item__description ${task.completed ? 'completed' : ''}">
         ${task.description}
       </div>
-      <div class="task-item__delete">
+      <div class="task-item__actions">
+        <button class="edit-button" data-index="${task.index}">
+          <i class="fas fa-edit"></i>
+        </button>
         <button class="delete-button" data-index="${task.index}">
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
     </div>
   `;
+
+  const editButton = listItem.querySelector('.edit-button');
+  editButton.addEventListener('click', () => {
+    const descriptionElem = listItem.querySelector('.task-item__description');
+    const inputElem = document.createElement('input');
+    inputElem.type = 'text';
+    inputElem.value = descriptionElem.innerText;
+    inputElem.addEventListener('blur', () => {
+      task.description = inputElem.value;
+      descriptionElem.innerText = inputElem.value;
+    });
+    descriptionElem.innerText = '';
+    descriptionElem.appendChild(inputElem);
+    inputElem.focus();
+  });
+
   return listItem;
 }
 function renderTaskList() {
@@ -62,18 +81,19 @@ function renderTaskList() {
   taskList.appendChild(addTaskItem);
 
   const addTaskForm = document.getElementById('add-task-form');
-  addTaskForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const taskDescription = document.getElementById('add-task-input').value;
-    const newTask = {
-      description: taskDescription,
-      completed: false,
-      index: tasks.length + 1,
-    };
-    tasks.push(newTask);
-    renderTaskList();
-    addTaskForm.reset();
-  });
+addTaskForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const taskDescription = document.getElementById('add-task-input').value;
+  const newTask = {
+    description: taskDescription,
+    completed: false, // set the completed property to false
+    index: tasks.length + 1, // set the index property to the value of the new array length
+  };
+  tasks.push(newTask);
+  renderTaskList();
+  addTaskForm.reset();
+});
+
 
   tasks.forEach((task) => {
     const listItem = createListItem(task);
