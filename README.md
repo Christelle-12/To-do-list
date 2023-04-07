@@ -91,6 +91,7 @@ To run tests, run the following command:
 <ul>
 <li>run npm i</li>
 <li>run npm start</li>
+<li>npm run build </li>
 </ul>
 
 ### Run Tests
