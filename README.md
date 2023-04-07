@@ -46,7 +46,6 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Key Features
-
 - npm packages
 - html, css, and js renders the project
 
@@ -70,16 +69,18 @@ In order to run this project you need:
 
 ### Setup
 
-Clone this repository to your desired folder: git@github.com:BranBayou/capstonePro1-personal-blog.git
+Clone this repository to your desired folder: https://github.com/Christelle-12/To-do-list.git
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Install
 
 1. Clone the repo:
-  https://github.com/BranBayou/awsome-books-project
+  https://github.com/Christelle-12/To-do-list.git
 2. Install npm packages:
   npm.install
+3. Install webpack:
+  webpack.config.js
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
