@@ -40,7 +40,6 @@ function renderTaskList() {
   const taskList = document.getElementById('task-list');
   taskList.innerHTML = '';
 
-  // Add "Add Task" input field and button as a separate task item
   const addTaskItem = document.createElement('li');
   addTaskItem.innerHTML = `
     <div class="task-item">
