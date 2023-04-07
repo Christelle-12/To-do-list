@@ -60,7 +60,7 @@ function renderTaskList() {
   taskList.appendChild(addTaskItem);
 
   const addTaskForm = document.getElementById('add-task-form');
-  addTaskForm.addEventListener('submit', function(event) {
+  addTaskForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const taskDescription = document.getElementById('add-task-input').value;
     const newTask = {
@@ -77,10 +77,10 @@ function renderTaskList() {
     const listItem = createListItem(task);
     taskList.appendChild(listItem);
   });
-  
+
   const checkboxes = document.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', function() {
+    checkbox.addEventListener('change', () => {
       const index = Number(checkbox.id.replace('task-', ''));
       const task = tasks.find((task) => task.index === index);
       task.completed = checkbox.checked;
@@ -90,7 +90,7 @@ function renderTaskList() {
 
   const deleteButtons = document.querySelectorAll('.delete-button');
   deleteButtons.forEach((button) => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', () => {
       const index = Number(button.dataset.index);
       const taskIndex = tasks.findIndex((task) => task.index === index);
       tasks.splice(taskIndex, 1);
@@ -99,12 +99,12 @@ function renderTaskList() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   renderTaskList();
 });
 
 const clearButton = document.getElementById('clear-btn');
-clearButton.addEventListener('click', function() {
+clearButton.addEventListener('click', () => {
   tasks.forEach((task) => {
     if (task.completed) {
       const taskIndex = tasks.findIndex((t) => t.index === task.index);
