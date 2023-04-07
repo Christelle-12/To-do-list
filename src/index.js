@@ -50,7 +50,7 @@ function renderTaskList() {
       </div>
       <div class="task-item__description">
         <form id="add-task-form">
-          <input type="text" id="add-task-input" placeholder="Enter task description">
+          <input type="text" id="add-task-input" placeholder="Add your task here,,,">
           <button type="submit" id="add-task-button">Add Task</button>
         </form>
       </div>

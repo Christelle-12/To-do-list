@@ -9,6 +9,10 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    width: 100%;
+}
+#add-task-input {
+    border: 1px none red;
 }
 
 #task-description-input {
@@ -69,4 +73,7 @@
 
 .delete-button i {
     color: red;
+}
+#clear-btn {
+    margin: 1rem;
 }
