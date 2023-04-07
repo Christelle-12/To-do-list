@@ -1,9 +1,10 @@
 function createListItem(task) {
+  const completed = task.completed !== undefined ? task.completed : false;
   const listItem = document.createElement('li');
   listItem.innerHTML = `
     <div class="task-item">
       <div class="task-item__checkbox">
-        <input type="checkbox" id="task-${task.index}" ${task.completed ? 'checked' : ''}>
+        <input type="checkbox" id="task-${task.index}" ${completed ? 'checked' : ''}>
         <label for="task-${task.index}"></label>
       </div>
       <div class="task-item__description ${task.completed ? 'completed' : ''}">
@@ -19,13 +20,13 @@ function createListItem(task) {
       </div>
     </div>
   `;
-
+  const tasks = [];
   const checkbox = listItem.querySelector('input[type="checkbox"]');
   checkbox.addEventListener('change', () => {
     const index = Number(checkbox.id.replace('task-', ''));
     const task = tasks.find((task) => task.index === index);
     task.completed = checkbox.checked;
-    renderTaskList();
+    window.renderTaskList();
   });
 
   const editButton = listItem.querySelector('.edit-button');
@@ -45,4 +46,4 @@ function createListItem(task) {
 
   return listItem;
 }
-export {createListItem};
+export default createListItem;
