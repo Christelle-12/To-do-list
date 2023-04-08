@@ -92,11 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTaskList();
 });
 
-const clearButton = document.getElementById('clear-btn');
-clearButton.addEventListener('click', () => {
-  tasks = tasks.filter((task) => !task.completed);
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-  renderTaskList();
-});
+// const clearButton = document.getElementById('clear-btn');
+// clearButton.addEventListener('click', () => {
+//   tasks = tasks.filter((task) => !task.completed);
+//   localStorage.setItem('tasks', JSON.stringify(tasks));
+//   renderTaskList();
+// });
 
 window.renderTaskList = renderTaskList;
