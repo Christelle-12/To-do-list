@@ -115,11 +115,6 @@ to run tests, run the following command
 - Twitter: [@Chr1Nirere](https://twitter.com/Chr1Nirere)
 
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-## 🚀 Live Demo <a name="live-demo"></a>
-
-
-- [Live Demo Link](not available)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

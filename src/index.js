@@ -1,43 +1,37 @@
 import './style.css';
+import createListItem from './createlist.js';
 
-const tasks = [
-  {
-    description: 'Go grocery shopping',
-    completed: false,
-    index: 1,
-  },
-  {
-    description: 'Finish homework',
-    completed: true,
-    index: 2,
-  },
-  {
-    description: 'Take out the trash',
-    completed: false,
-    index: 3,
-  },
-];
+let tasks = [];
 
-function createListItem(task) {
-  const listItem = document.createElement('li');
-  listItem.innerHTML = `
-    <div class="task-item">
-      <div class="task-item__checkbox">
-        <input type="checkbox" id="task-${task.index}" ${task.completed ? 'checked' : ''}>
-        <label for="task-${task.index}"></label>
-      </div>
-      <div class="task-item__description ${task.completed ? 'completed' : ''}">
-        ${task.description}
-      </div>
-      <div class="task-item__delete">
-        <button class="delete-button" data-index="${task.index}">
-          <i class="fas fa-trash-alt"></i>
-        </button>
-      </div>
-    </div>
-  `;
-  return listItem;
+// Retrieve tasks from local storage
+const storedTasks = localStorage.getItem('tasks');
+if (storedTasks) {
+  tasks = JSON.parse(storedTasks);
 }
+
+// Add new task function
+function addTask(description) {
+  const newTask = {
+    description,
+    completed: false,
+    index: tasks.length + 1, // Updated to set index to the new array length + 1
+  };
+  tasks.push(newTask);
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTaskList();
+}
+
+// Delete task function
+function deleteTask(index) {
+  const taskIndex = tasks.findIndex((task) => task.index === index);
+  tasks.splice(taskIndex, 1);
+  tasks.forEach((task, index) => {
+    task.index = index + 1;
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTaskList();
+}
+
 function renderTaskList() {
   const taskList = document.getElementById('task-list');
   taskList.innerHTML = '';
@@ -51,7 +45,7 @@ function renderTaskList() {
       </div>
       <div class="task-item__description">
         <form id="add-task-form">
-          <input type="text" id="add-task-input" placeholder="Add your task here,,,">
+          <input type="text" id="add-task-input" placeholder="Add your task here...">
           <button type="submit" id="add-task-button">Add Task</button>
         </form>
       </div>
@@ -65,13 +59,7 @@ function renderTaskList() {
   addTaskForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const taskDescription = document.getElementById('add-task-input').value;
-    const newTask = {
-      description: taskDescription,
-      completed: false,
-      index: tasks.length + 1,
-    };
-    tasks.push(newTask);
-    renderTaskList();
+    addTask(taskDescription);
     addTaskForm.reset();
   });
 
@@ -86,6 +74,7 @@ function renderTaskList() {
       const index = Number(checkbox.id.replace('task-', ''));
       const task = tasks.find((task) => task.index === index);
       task.completed = checkbox.checked;
+      localStorage.setItem('tasks', JSON.stringify(tasks));
       renderTaskList();
     });
   });
@@ -94,9 +83,7 @@ function renderTaskList() {
   deleteButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const index = Number(button.dataset.index);
-      const taskIndex = tasks.findIndex((task) => task.index === index);
-      tasks.splice(taskIndex, 1);
-      renderTaskList();
+      deleteTask(index);
     });
   });
 }
@@ -105,13 +92,11 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTaskList();
 });
 
-const clearButton = document.getElementById('clear-btn');
-clearButton.addEventListener('click', () => {
-  tasks.forEach((task) => {
-    if (task.completed) {
-      const taskIndex = tasks.findIndex((t) => t.index === task.index);
-      tasks.splice(taskIndex, 1);
-    }
-  });
-  renderTaskList();
-});
+// const clearButton = document.getElementById('clear-btn');
+// clearButton.addEventListener('click', () => {
+//   tasks = tasks.filter((task) => !task.completed);
+//   localStorage.setItem('tasks', JSON.stringify(tasks));
+//   renderTaskList();
+// });
+
+window.renderTaskList = renderTaskList;
