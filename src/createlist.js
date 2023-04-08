@@ -1,5 +1,5 @@
 function createListItem(task) {
- const completed = 'completed' in task ? task.completed : false;
+  const completed = 'completed' in task ? task.completed : false;
   const listItem = document.createElement('li');
   listItem.innerHTML = `
     <div class="task-item">
@@ -23,13 +23,13 @@ function createListItem(task) {
   const tasks = [];
   const checkbox = listItem.querySelector('input[type="checkbox"]');
   checkbox.addEventListener('change', () => {
-  const index = Number(checkbox.id.replace('task-', ''));
-  const task = tasks.find((task) => task.index === index);
-  if (task) {
-    task.completed = checkbox.checked;
-    window.renderTaskList();
-  }
-});
+    const index = Number(checkbox.id.replace('task-', ''));
+    const task = tasks.find((task) => task.index === index);
+    if (task) {
+      task.completed = checkbox.checked;
+      window.renderTaskList();
+    }
+  });
 
   const editButton = listItem.querySelector('.edit-button');
   editButton.addEventListener('click', () => {
