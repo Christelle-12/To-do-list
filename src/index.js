@@ -13,11 +13,22 @@ if (storedTasks) {
 function addTask(description) {
   const newTask = {
     description,
-    completed: false, // set the completed property to false
-    index: tasks.length, // set the index property to the value of the new array length
+    completed: false,
+    index: tasks.length + 1, // Updated to set index to the new array length + 1
   };
   tasks.push(newTask);
-  localStorage.setItem('tasks', JSON.stringify(tasks)); // Store tasks in local storage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+  renderTaskList();
+}
+
+// Delete task function
+function deleteTask(index) {
+  const taskIndex = tasks.findIndex((task) => task.index === index);
+  tasks.splice(taskIndex, 1);
+  tasks.forEach((task, index) => {
+    task.index = index + 1;
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
   renderTaskList();
 }
 
@@ -34,7 +45,7 @@ function renderTaskList() {
       </div>
       <div class="task-item__description">
         <form id="add-task-form">
-          <input type="text" id="add-task-input" placeholder="Add your task here,,,">
+          <input type="text" id="add-task-input" placeholder="Add your task here...">
           <button type="submit" id="add-task-button">Add Task</button>
         </form>
       </div>
@@ -72,10 +83,7 @@ function renderTaskList() {
   deleteButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const index = Number(button.dataset.index);
-      const taskIndex = tasks.findIndex((task) => task.index === index);
-      tasks.splice(taskIndex, 1);
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-      renderTaskList();
+      deleteTask(index);
     });
   });
 }
@@ -87,7 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
 const clearButton = document.getElementById('clear-btn');
 clearButton.addEventListener('click', () => {
   tasks = tasks.filter((task) => !task.completed);
-  localStorage.setItem('tasks', JSON.stringify(tasks)); // Update tasks in local storage
+  localStorage.setItem('tasks', JSON.stringify(tasks));
   renderTaskList();
 });
+
 window.renderTaskList = renderTaskList;

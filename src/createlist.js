@@ -20,13 +20,14 @@ function createListItem(task) {
       </div>
     </div>
   `;
-  const tasks = [];
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   const checkbox = listItem.querySelector('input[type="checkbox"]');
   checkbox.addEventListener('change', () => {
     const index = Number(checkbox.id.replace('task-', ''));
     const task = tasks.find((task) => task.index === index);
     if (task) {
       task.completed = checkbox.checked;
+      localStorage.setItem('tasks', JSON.stringify(tasks));
       window.renderTaskList();
     }
   });
@@ -40,6 +41,7 @@ function createListItem(task) {
     inputElem.addEventListener('blur', () => {
       task.description = inputElem.value;
       descriptionElem.innerText = inputElem.value;
+      localStorage.setItem('tasks', JSON.stringify(tasks));
     });
     descriptionElem.innerText = '';
     descriptionElem.appendChild(inputElem);
